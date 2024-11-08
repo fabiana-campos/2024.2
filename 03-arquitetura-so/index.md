@@ -48,17 +48,17 @@ Embora o Linux tenha um design modular e possa ter "tarefas de núcleo" semelhan
 
 ### 3. Sobre as afirmações a seguir, relativas às diversas arquiteturas de sistemas operacionais, indique quais são incorretas, justificando sua resposta:
 (a) Uma máquina virtual de sistema é construída para suportar uma aplicação escrita em uma linguagem de programação específica, como Java. 
-Incorreta. Esta definição descreve uma máquina virtual de aplicação. Uma máquina virtual de sistema é projetada para executar um sistema operacional completo (ou vários sistemas operacionais), não apenas uma aplicação.
+- Incorreta. Esta definição descreve uma máquina virtual de aplicação. Uma máquina virtual de sistema é projetada para executar um sistema operacional completo (ou vários sistemas operacionais), não apenas uma aplicação.
 
 (b) Um hipervisor convidado executa sobre um sistema operacional hospedeiro.
-Correta.
+- Correta.
 
 (c) Em um sistema operacional micronúcleo, os diversos componentes do sistema são construídos como módulos interconectados executando dentro do núcleo.
-Incorreta. No micronúcleo, os componentes estão fora do núcleo, não dentro.
+- Incorreta. No micronúcleo, os componentes estão fora do núcleo, não dentro.
 
 (d) Núcleos monolíticos são muito utilizados devido à sua robustez e facilidade de manutenção.
-Incorreta. Núcleos monolíticos têm alto desempenho, mas não são fáceis de manter nem são robustos.
+- Incorreta. Núcleos monolíticos têm alto desempenho, mas não são fáceis de manter nem são robustos.
 
 
 (e) Em um sistema operacional micronúcleo, as chamadas de sistema são implementadas através de trocas de mensagens.
-Correta.
+- Correta.
