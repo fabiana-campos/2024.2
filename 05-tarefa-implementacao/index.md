@@ -16,6 +16,9 @@
 ### 1. Explique o que é, para que serve e o que contém um TCB - Task Control Block.
 um TCB é uma estrutura de dados que o núcleo do sistema operacional usa para representar e gerenciar cada tarefa. Nessa estrutura de dados são armazenadas as informações relativas ao seu contexto e os demais dados necessários à sua gerência, permitindo que o sistema controle e retome a execução da tarefa conforme necessário. O TCB inclui informações essenciais, como o identificador da tarefa, seu estado atual (nova, pronta, executando, etc.), informações de contexto do processador (como valores dos registradores), além de listas com áreas de memória e recursos utilizados, como arquivos abertos e conexões de rede. Ele também armazena informações de gerência e contabilização, como prioridade, usuário proprietário, data de início e volume de dados processados. 
 
+### 3. 
+- a letra X será impressa 5 vezes
+
 ### 4. O que são threads e para que servem? 
 Uma thread é definida como sendo um fluxo de execução independente. Um processo pode conter uma ou mais threads, cada uma executando seu próprio código e compartilhando recursos com as demais threads localizadas no mesmo processo. Cada thread é caracterizada por um código em execução e um pequeno contexto local, o chamado Thread Local Storage (TLS), composto pelos registradores do processador e uma área de pilha em memória, para que a thread possa armazenar variáveis locais e efetuar chamadas de funções. Threads são também utilizadas para implementar fluxos de execução dentro do núcleo do SO, neste caso recebendo o nome de threads de núcleo. Além disso as threads de núcleo também incluem atividades internas do núcleo, como rotinas de drivers de dispositivos ou tarefas de gerência.
 
