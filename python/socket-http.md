@@ -238,3 +238,131 @@ fazer_requisicao_get()
 ## Links
 - [http.server — HTTP servers](https://docs.python.org/3/library/http.server.html)
 
+# RESPOSTA EXPERIMENTO
+
+# Experimento: Servidor HTTP com e sem Thread
+
+## 1. Servidor HTTP sem Thread
+
+### 1.1. Execução do Servidor HTTP Sem Thread
+
+```python
+import http.server
+
+# Definir o conteúdo HTML fixo
+html_fixo = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Servidor HTTP</title>
+</head>
+<body>
+    <h1>Olá, mundo!</h1>
+    <p>Este é um servidor HTTP sem threads em Python.</p>
+</body>
+</html>
+"""
+
+class MeuManipulador(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        print(f"Requisição recebida de: {self.client_address}")
+        print(f"Caminho solicitado: {self.path}")
+        
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(html_fixo.encode("utf-8"))
+
+endereco = ("", 8000)
+with http.server.HTTPServer(endereco, MeuManipulador) as httpd:
+    print("Servidor HTTP rodando na porta 8000...")
+    httpd.serve_forever()
+```
+
+### 1.2. Testes com Diferentes Quantidades de Clientes
+Executando o cliente para os seguintes casos:
+- 1 cliente
+- 2 clientes simultâneos
+- 5 clientes simultâneos
+- 10 clientes simultâneos
+
+### 1.3. Análise do Comportamento Sem Threads
+| Número de Clientes | Comportamento |
+|--------------------|--------------|
+| 1 cliente         | Respondeu normalmente. |
+| 2 clientes        | O segundo cliente esperou o primeiro terminar. |
+| 5 clientes        | As requisições foram tratadas sequencialmente, causando latência. |
+| 10 clientes       | Atraso significativo, pois cada cliente aguardava sua vez. |
+
+## 2. Servidor HTTP com Thread
+
+### 2.1. Execução do Servidor HTTP Com Thread
+
+```python
+import http.server
+import socketserver
+from socketserver import ThreadingMixIn
+
+# Definir o conteúdo HTML fixo
+html_fixo = """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Servidor HTTP Multithread</title>
+</head>
+<body>
+    <h1>Olá, mundo!</h1>
+    <p>Este é um servidor HTTP multithread em Python.</p>
+</body>
+</html>
+"""
+
+class MeuManipulador(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        print(f"Requisição recebida de: {self.client_address}")
+        print(f"Caminho solicitado: {self.path}")
+        
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        self.wfile.write(html_fixo.encode("utf-8"))
+
+class ThreadingHTTPServer(ThreadingMixIn, http.server.HTTPServer):
+    daemon_threads = True
+
+endereco = ("", 8000)
+with ThreadingHTTPServer(endereco, MeuManipulador) as httpd:
+    print("Servidor HTTP multithread rodando na porta 8000...")
+    httpd.serve_forever()
+```
+
+### 2.2. Testes com Diferentes Quantidades de Clientes
+Executando o cliente para os seguintes casos:
+- 1 cliente
+- 2 clientes simultâneos
+- 5 clientes simultâneos
+- 10 clientes simultâneos
+
+### 2.3. Análise do Comportamento Com Threads
+| Número de Clientes | Comportamento |
+|--------------------|--------------|
+| 1 cliente         | Respondeu normalmente. |
+| 2 clientes        | Ambos os clientes foram atendidos simultaneamente. |
+| 5 clientes        | Requisições processadas paralelamente, sem latência perceptível. |
+| 10 clientes       | Servidor manteve bom desempenho, atendendo múltiplos clientes ao mesmo tempo. |
+
+## 3. Comparação Entre os Servidores
+
+| Característica         | Sem Threads                          | Com Threads                          |
+|------------------------|---------------------------------|---------------------------------|
+| Tratamento de requisições | Sequencial                           | Paralelo                             |
+| Latência               | Aumenta com o número de clientes | Mantida baixa mesmo com mais clientes |
+| Desempenho            | Ruim para múltiplos clientes      | Melhor escalabilidade                |
+
+### Conclusão
+- O servidor sem threads apresenta grande latência à medida que o número de clientes aumenta, pois as requisições são tratadas de forma sequencial.
+- O servidor com threads permite múltiplos clientes simultaneamente, melhorando o desempenho e reduzindo a latência.
+- Em aplicações com alta concorrência, o uso de threads é altamente recomendado para melhorar a experiência do usuário e otimizar o tempo de resposta.
+
+
+
