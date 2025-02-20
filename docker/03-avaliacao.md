@@ -135,6 +135,5 @@ docker-compose logs -f
 ```
 
 ### Conclusão
-6. Conclusão
 
 O projeto foi conteinerizado com sucesso usando Docker e Docker Compose. Agora, o Django pode interagir com um banco de dados PostgreSQL dentro do ambiente Dockerizado.
